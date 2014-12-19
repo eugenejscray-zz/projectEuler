@@ -231,6 +231,40 @@ Class EulerSolutions{
 		}
 		return $this->rollingSum;
 	}
+
+	public function getLargestPrimeFactor($factoredNumber){
+		// we need to find a way to get the largest prime factor. 
+		// There is an algotithm that find the largest prime factor by using 2n or something like that.
+		return 1;
+	}
+
+	public function getTheLargestPalindromeOfProductOfDigits($digits){
+		// we need to loop though all numbers with digits.
+
+
+		// find the palindromes and then find the largest palindrome.
+
+
+
+
+
+
+		return 1;
+	}
+
+	public function isPalindrome($number){
+		$isPalindrome = true;
+		$testing_ar = str_split($number);
+
+		$oddChange = (count($testing_ar) % 2 == 1 ? 1 : 0);
+
+		for($i = 0; $i < (count($testing_ar) - $oddChange) / 2; $i++){
+			if($testing_ar[$i] != $testing_ar[ count($testing_ar) - 1 - $i ] )
+				return false;
+		}
+		return $isPalindrome;
+
+	}
 }
 
 Class EulerTests{
@@ -261,7 +295,6 @@ Class EulerTests{
 		$realVal = $eulerObj->getMuliplesSum(10, array(3,5));
 		$this->assertEquals($expectedMSumSolutions, $realVal, "We have a problem the sum should be $expectedMSumSolutions not $realVal", "Success 23 is outputted");
 
-
 		// even fibinocci numbers.
 		// create the funcitons.
 		// get the real sum of numbers less than 9
@@ -269,6 +302,33 @@ Class EulerTests{
 		$fibReal = $eulerObj->getSumofEvenFibinocciNumbers(1, 1, 9);
 		$this->assertEquals($fibSumReal, $fibReal, "We have a problem the sum should be $fibSumReal not $fibReal", "Success 10 is outputted");
 
+
+		$largestPrimeReal = 7;
+		$largestPrimeCalced = $eulerObj->getLargestPrimeFactor(14);
+		$this->assertEquals($largestPrimeReal, $largestPrimeCalced, "We have a problem with the largest prime factor function. $largestPrimeReal should equal $largestPrimeCalced");
+
+
+		$largestPalindromeOfTwoDigits = 9009;
+		$computedLargestPalindromeOfTwoDigits = $eulerObj->getTheLargestPalindromeOfProductOfDigits(2);
+		$this->assertEquals($largestPrimeReal, $largestPrimeCalced, "We have a problem. The number recieved from the function getTheLargestPalindromeOfProductOfDigits must equal $largestPalindromeOfTwoDigits");
+
+		// is Palindrome Test. We should test against an even integer and an odd integer.
+		$evenPalindrome = 9009;
+		$oddPalindrome = 99099;
+
+		$testEven = $eulerObj->isPalindrome($evenPalindrome);
+		$this->assertEquals($testEven, true, "$evenPalindrome is a Palindrome", "Success! Palindrome even test");
+
+		$testOdd = $eulerObj->isPalindrome($oddPalindrome);
+		$this->assertEquals($testEven, true, "$oddPalindrome is a Palindrome", "Success! Palindrome odd test");
+
+		$notAPalindrome = $evenPalindrome + 1;
+		$testOdd = $eulerObj->isPalindrome($notAPalindrome);
+		$this->assertEquals($testOdd, false, "notAPalindrome is not a Palindrome", "Success! Not a Palindrome even test");
+
+		$notAPalindrome = $oddPalindrome + 1;
+		$testOdd = $eulerObj->isPalindrome($notAPalindrome);
+		$this->assertEquals($testOdd, false, "notAPalindrome is not a Palindrome", "Success! Not a Palindrome even test");
 
 	}
 }
@@ -301,5 +361,6 @@ echo $EulerSolutions->getSumofEvenFibinocciNumbers(1, 1, 4000000);
 
 // Test declarations 
 
-echo "<h2>This site is being used to create algorithms from the book.</h2>";
+echo "<h2>This site is being used to create solutions for the Euler Problems online.</h2>";
 ?>
+$notAPalindrome
