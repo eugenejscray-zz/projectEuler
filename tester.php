@@ -194,26 +194,107 @@ Class Test{
 
 
 	public function runSuite(){
-		// $methods = get_class_methods(Test);
-		// foreach($method in $methods){
-		// 	if($method != "runSuite")
-		// 		call_user_func(
-
-		// }
+		$eulerTests = new EulerTests();
 	}
 }
 
 
-Class EulerQuestions{
+Class EulerSolutions{
+
+
+	private $rollingSum = 0;
 	public function __construct(){
 
 	}	
+	// for every value that is a multiple of the input in ar_mults we will add this to the summation 
+	public function getMuliplesSum($toNum, $ar_mults){
+		$sum = 0;
+
+		for($i = 1; $i < $toNum; $i++){
+			foreach($ar_mults as $mults){
+				if($i % $mults == 0){
+					$sum += $i;
+					break;
+				}
+			}
+		}
+		return $sum + "<br />";
+	}
+
+	public function getSumofEvenFibinocciNumbers($firstNumber, $secondNumber, $limit){
+		
+		$nextNumber = $firstNumber + $secondNumber;
+		if($nextNumber % 2 == 0)
+			$this->rollingSum += $nextNumber;
+		if($nextNumber < $limit){
+			$this->getSumofEvenFibinocciNumbers($secondNumber, $nextNumber, $limit);
+		}
+		return $this->rollingSum;
+	}
+}
+
+Class EulerTests{
+
+
+	public function __construct(){
+	}
+
+
+	public function assertEquals($input1, $input2, $message, $messageSuccess){
+		if($input1 != $input2){
+			echo $message . "<br />";
+			return false;
+		}
+		if($messageSuccess){
+			echo $messageSuccess . "<br />";
+
+		}
+		return true;
+
+	}
+
+	// we should be looping through all of the tests in this construct
+	public function testSolutions(){
+
+		$eulerObj = new EulerSolutions();
+		$expectedMSumSolutions = 23;
+		$realVal = $eulerObj->getMuliplesSum(10, array(3,5));
+		$this->assertEquals($expectedMSumSolutions, $realVal, "We have a problem the sum should be $expectedMSumSolutions not $realVal", "Success 23 is outputted");
+
+
+		// even fibinocci numbers.
+		// create the funcitons.
+		// get the real sum of numbers less than 9
+		$fibSumReal = 10;
+		$fibReal = $eulerObj->getSumofEvenFibinocciNumbers(1, 1, 9);
+		$this->assertEquals($fibSumReal, $fibReal, "We have a problem the sum should be $fibSumReal not $fibReal", "Success 10 is outputted");
+
+
+	}
 }
 
 //run the test suite
 // refactor to use the styler
 $tests = new Test();
-$tests->testInsertionSorter();
+
+$EulerTests = new EulerTests();
+$EulerTests->testSolutions();
+
+$EulerSolutions = new EulerSolutions();
+
+
+echo "<br />";
+echo "<br />";
+echo "<h2>Solutions</h2>";
+echo "Sum of multiples of 3 and 5 up to 1000<br />";
+
+echo $EulerSolutions->getMuliplesSum(1000, array(3,5));
+echo "<br />";
+
+echo $EulerSolutions->getSumofEvenFibinocciNumbers(1, 1, 4000000);
+
+
+
 
 
 
